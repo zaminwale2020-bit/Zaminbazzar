@@ -368,7 +368,7 @@ const NavLogo = ({ logo: Logo }) => {
 
 const NavItems = [
     {
-        label: "For Buyerss",
+        label: "For Buyer",
         icon: Tag,
         data: [
             {
