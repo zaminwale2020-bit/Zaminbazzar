@@ -83,7 +83,7 @@ const SimilarExterior = () => {
                                         <div className="flex flex-col w-full border border-neutral-200 rounded-lg group hover:shadow-lg">
                                             <div className="relative aspect-video bg-cover rounded-t-lg flex w-full overflow-hidden">
                                                 <Image
-                                                    src={`/assets/recommonded-property/${card.img}`}
+                                                    src={`/assets/recomonded-property/${card.img}`}
                                                     alt="house"
                                                     fill
                                                     className="rounded-t-lg group-hover:scale-110 transition-all object-cover"
