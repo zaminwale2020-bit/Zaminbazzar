@@ -1,8 +1,11 @@
-"user server"
+"use server";
 
 import { fetchWithoutToken, fetchWithToken } from "@/services/fetch";
 
-const formatFilterForQuery = (filter) => {
+/**
+ * Format filter parameters for query strings
+ */
+function formatFilterForQuery(filter) {
     const queryString = new URLSearchParams();
 
     Object.keys(filter).forEach((key) => {
@@ -16,163 +19,145 @@ const formatFilterForQuery = (filter) => {
     });
 
     return queryString.toString();
-};
+}
 
-export const createProperty = async (body) => {
-    let resp = await fetchWithToken("/property/add", {
+/* -------------------------------------------------------------------------- */
+/*                                Property APIs                               */
+/* -------------------------------------------------------------------------- */
+
+export async function createProperty(body) {
+    const resp = await fetchWithToken("/property/add", {
         method: "POST",
         body: JSON.stringify(body),
-    })
-    resp = resp.results.data
-    return resp
+    });
+    return resp?.results?.data;
 }
 
-export const getAllProperty = async ({ page, limit }) => {
-    let resp = await fetchWithoutToken(`/property/getAll?page=${page}&limit=${limit}`, {
-        method: "GET"
-    })
-    resp = resp.results.data
-    return resp
-}
-
-export const getOneProperty = async (propertyId) => {
-    let resp = await fetchWithoutToken(`/property/${propertyId}`, {
-        method: "GET"
-    })
-    resp = resp.results.data
-    return resp
-}
-
-export const updateProperty = async (body) => {
-    let resp = await fetchWithToken("/user/properties/edit", {
-        method: "PUt",
-        body: JSON.stringify(body),
-    })
-    resp = resp.results.data
-    return resp
-}
-
-export const deleteProperty = async (propertyId) => {
-    let resp = await fetchWithToken(`/user/properties/delete/${propertyId}`, {
-        method: "DELETE"
-    })
-    resp = resp.results.data
-    return resp
-}
-
-export const filterProperty = async (filter) => {
-    const formattedFilter = formatFilterForQuery(filter)
-    const queryParams = new URLSearchParams(formattedFilter).toString()
-
-    let resp = await fetchWithoutToken(`/property/getAll/filter?${queryParams}`, {
+export async function getAllProperty({ page, limit }) {
+    const resp = await fetchWithoutToken(`/property/getAll?page=${page}&limit=${limit}`, {
         method: "GET",
-    })
-    resp = resp.results.data
-    return resp
+    });
+    return resp?.results?.data;
 }
 
-export const uploadPropertyImage = async ({ body }) => {
-    let resp = await fetchWithToken("/property/upload/file", {
+export async function getOneProperty(propertyId) {
+    const resp = await fetchWithoutToken(`/property/${propertyId}`, {
+        method: "GET",
+    });
+    return resp?.results?.data;
+}
+
+export async function updateProperty(body) {
+    const resp = await fetchWithToken("/user/properties/edit", {
+        method: "PUT",
+        body: JSON.stringify(body),
+    });
+    return resp?.results?.data;
+}
+
+export async function deleteProperty(propertyId) {
+    const resp = await fetchWithToken(`/user/properties/delete/${propertyId}`, {
+        method: "DELETE",
+    });
+    return resp?.results?.data;
+}
+
+export async function filterProperty(filter) {
+    const formattedFilter = formatFilterForQuery(filter);
+    const resp = await fetchWithoutToken(`/property/getAll/filter?${formattedFilter}`, {
+        method: "GET",
+    });
+    return resp?.results?.data;
+}
+
+export async function uploadPropertyImage({ body }) {
+    const resp = await fetchWithToken("/property/upload/file", {
         method: "POST",
         noContentType: true,
         body,
-    })
-    resp = resp.results
-    return resp
+    });
+    return resp?.results;
 }
 
-// export const uploadPropertyImage = async ({ body }) => {
-//     const token = cookieService.getAccessToken()
-//     const res = await fetch(
-//         "http://3.111.32.86/api/v1/property/upload/file",
-//         {
-//             method: "POST",
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//             },
-//             body
-//         }
-//     ).then(res => res.json())
-//     return res?.results
-// }
+/* -------------------------------------------------------------------------- */
+/*                            Website Enquiry APIs                            */
+/* -------------------------------------------------------------------------- */
 
-
-// Website Enquiry
-
-export const createWebsiteEnquiry = async (body) => {
-    let resp = await fetchWithoutToken("/enquiry/website/add", {
+export async function createWebsiteEnquiry(body) {
+    const resp = await fetchWithoutToken("/enquiry/website/add", {
         method: "POST",
         body: JSON.stringify(body),
-    })
-    resp = resp.results.data
-    return resp
+    });
+    return resp?.results?.data;
 }
 
-export const getWebsiteEnquiry = async ({ page, limit }) => {
-    let resp = await fetchWithToken(`/enquiry/website/getAll?page=${page}&limit=${limit}`, {
-        method: "GET"
-    })
-    resp = resp.results.data
-    return resp
-}
-
-export const downloadWebsiteEnquiry = async ({ startDate = null, endDate = null }) => {
-    let resp = await fetchWithToken(`/enquiry/website/export?startDate=${startDate}&endDate=${endDate}`, {
+export async function getWebsiteEnquiry({ page, limit }) {
+    const resp = await fetchWithToken(`/enquiry/website/getAll?page=${page}&limit=${limit}`, {
         method: "GET",
-    })
-    return resp
+    });
+    return resp?.results?.data;
 }
 
+export async function downloadWebsiteEnquiry({ startDate = null, endDate = null }) {
+    const resp = await fetchWithToken(
+        `/enquiry/website/export?startDate=${startDate}&endDate=${endDate}`,
+        { method: "GET" }
+    );
+    return resp;
+}
 
-// Property Enquiry
+/* -------------------------------------------------------------------------- */
+/*                           Property Enquiry APIs                            */
+/* -------------------------------------------------------------------------- */
 
-export const createPropertyEnquiry = async ({ body, propertyId }) => {
-    let resp = await fetchWithoutToken(`/enquiry/property/add/${propertyId}`, {
+export async function createPropertyEnquiry({ body, propertyId }) {
+    const resp = await fetchWithoutToken(`/enquiry/property/add/${propertyId}`, {
         method: "POST",
         body: JSON.stringify(body),
-    })
-    resp = resp.results.data
-    return resp
+    });
+    return resp?.results?.data;
 }
 
-export const getPropertyEnquiry = async ({ propertyId, page, limit }) => {
-    let resp = await fetchWithToken(`/enquiry/property/getAll/${propertyId}?page=${page}&limit=${limit}`, {
-        method: "GET"
-    })
-    resp = resp.results.data
-    return resp
+export async function getPropertyEnquiry({ propertyId, page, limit }) {
+    const resp = await fetchWithToken(
+        `/enquiry/property/getAll/${propertyId}?page=${page}&limit=${limit}`,
+        { method: "GET" }
+    );
+    return resp?.results?.data;
 }
 
-export const downloadPropertyEnquiry = async ({ propertyId, startDate = null, endDate = null }) => {
-    let resp = await fetchWithToken(`/enquiry/property/export/${propertyId}?startDate=${startDate}&endDate=${endDate}`, {
-        method: "GET",
-    })
-    return resp
+export async function downloadPropertyEnquiry({ propertyId, startDate = null, endDate = null }) {
+    const resp = await fetchWithToken(
+        `/enquiry/property/export/${propertyId}?startDate=${startDate}&endDate=${endDate}`,
+        { method: "GET" }
+    );
+    return resp;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             Property Visit APIs                            */
+/* -------------------------------------------------------------------------- */
 
-// Property Visits
-
-export const createPropertyVisit = async ({ body, propertyId }) => {
-    let resp = await fetchWithoutToken(`/enquiry/property/add/visit/${propertyId}`, {
+export async function createPropertyVisit({ body, propertyId }) {
+    const resp = await fetchWithoutToken(`/enquiry/property/add/visit/${propertyId}`, {
         method: "POST",
         body: JSON.stringify(body),
-    })
-    resp = resp.results.data
-    return resp
+    });
+    return resp?.results?.data;
 }
 
-export const getPropertyVisits = async ({ propertyId, page, limit }) => {
-    let resp = await fetchWithToken(`/enquiry/property/getAll/visit/${propertyId}?page=${page}&limit=${limit}`, {
-        method: "GET"
-    })
-    resp = resp.results.data
-    return resp
+export async function getPropertyVisits({ propertyId, page, limit }) {
+    const resp = await fetchWithToken(
+        `/enquiry/property/getAll/visit/${propertyId}?page=${page}&limit=${limit}`,
+        { method: "GET" }
+    );
+    return resp?.results?.data;
 }
 
-export const downloadPropertyVisit = async ({ propertyId, startDate = null, endDate = null }) => {
-    let resp = await fetchWithToken(`/enquiry/property/export/visit/${propertyId}?startDate=${startDate}&endDate=${endDate}`, {
-        method: "GET",
-    })
-    return resp
+export async function downloadPropertyVisit({ propertyId, startDate = null, endDate = null }) {
+    const resp = await fetchWithToken(
+        `/enquiry/property/export/visit/${propertyId}?startDate=${startDate}&endDate=${endDate}`,
+        { method: "GET" }
+    );
+    return resp;
 }
