@@ -197,7 +197,7 @@ const SearchBar = () => {
                         />
                         <Button
                             type="submit"
-                            className="rounded-full bg-[#6f272b]"
+                            className="rounded-full bg-[#EDB015]"
                         >
                             <Search />
                             Search

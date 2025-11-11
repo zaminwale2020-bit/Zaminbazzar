@@ -120,7 +120,7 @@ const EnquireForm = ({ propertyId, uid }) => {
                         )}
                     />
                     
-                    <Button className="rounded-3xl w-full bg-[#6f272b]">
+                    <Button className="rounded-3xl w-full bg-[#EDB015]">
                         {loading ? <Loading /> : "Submit"}
                     </Button>
                     

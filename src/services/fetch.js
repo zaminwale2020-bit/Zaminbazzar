@@ -152,11 +152,12 @@ const customFetch = async (
 /**
  * Fetch with token
  */
-export const fetchWithToken = (endpoint, options = {}) =>
-    customFetch(process.env.API_URL, endpoint, options, "access");
-
+export const fetchWithToken = async (endpoint, options = {}) => {
+    return customFetch(process.env.API_URL, endpoint, options, "access");
+  };
 /**
  * Fetch without token
  */
-export const fetchWithoutToken = (endpoint, options = {}) =>
-    customFetch(process.env.API_URL, endpoint, options, null);
+export const fetchWithoutToken = async (endpoint, options = {}) => {
+    return customFetch(process.env.API_URL, endpoint, options, null);
+  };
