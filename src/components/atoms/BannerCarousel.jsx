@@ -51,44 +51,45 @@ const BannerCarousel = () => {
                     {isMD ? (
                         <>
                             {WebsiteBanner.map((card, index) => (
-                                <CarouselItem
-                                    key={`${index}-img`}
-                                    className="flex w-full h-full items-center justify-center pl-0"
-                                >
-                                    <div className="relative aspect-video h-full w-full max-w-[1400px] mx-auto rounded-b-3xl shadow-md hidden md:flex">
-                                        <Image
-                                            loading="lazy"
-                                            src={`/assets/banner-img/${card.img}`}
-                                            alt="banner-img"
-                                            fill
-                                            className="object-cover lg:object-cover object-center h-full w-full rounded-b-3xl"
-                                        />
-                                    </div>
-                                </CarouselItem>
+                                < CarouselItem
+                                key = {`${index}-img`}
+                            className="flex w-full h-full items-center justify-center pl-0"
+                            >
+                            <div className="relative aspect-video h-full w-full max-w-[1400px] mx-auto rounded-b-3xl shadow-md hidden md:flex">
+                                <Image
+                                    loading="lazy"
+                                    src={`/assets/banner-img/${card.img}`}
+                                    alt="banner-img"
+                                    fill
+                                    className="object-cover lg:object-cover object-center h-[100px] w-full rounded-b-3xl hover:"
+                                />
+                            </div>
+                        </CarouselItem>
                             ))}
-                        </>
-                    ) : (
-                        <>
-                            {MobileBanner.map((card, index) => (
-                                <CarouselItem
-                                    key={`${index}-img`}
-                                    className="flex w-full h-full items-center justify-center pl-0"
-                                >
-                                    <div className="relative aspect-video h-full w-full flex md:hidden">
-                                        <Image
-                                            loading="lazy"
-                                            src={`/assets/banner-img/${card.img}`}
-                                            alt="banner-img"
-                                            fill
-                                            className="object-contain sm:object-cover object-top sm:object-center h-full w-full"
-                                        />
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </>
+                </>
+                ) : (
+                <>
+                    {MobileBanner.map((card, index) => (
+                        <CarouselItem
+                            key={`${index}-img`}
+                            className="flex w-full h-full items-center justify-center pl-0"
+                        >
+                            <div className="relative aspect-video h-full w-full flex md:hidden">
+                                <Image
+                                    loading="lazy"
+                                    src={`/assets/banner-img/${card.img}`}
+                                    alt="banner-img"
+                                    fill
+                                    className="object-contain sm:object-cover object-top sm:object-center h-full w-full"
+                                />
+                            </div>
+                        </CarouselItem>
+
+                    ))}
+                </>
                     )}
-                </CarouselContent>
-            </Carousel>
+            </CarouselContent>
+        </Carousel >
         </>
     );
 };
@@ -100,7 +101,7 @@ const WebsiteBanner = [
         img: "zaminb1.avif",
     },
     {
-        img: "zaminb2.avif",
+        img: "zamin-wb-.jpg",
     },
     {
         img: "zaminb3.avif",
