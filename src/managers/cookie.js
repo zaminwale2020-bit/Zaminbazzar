@@ -1,6 +1,7 @@
 import { differenceInDays, fromUnixTime } from "date-fns"
 import Cookies from "js-cookie"
-import { jwtDecode } from "jwt-decode"
+import jwtDecode from "jwt-decode";
+
 
 /**
  * Manages cookies using the `js-cookie` library and provides methods for accessing, updating, and observing changes to cookies.
